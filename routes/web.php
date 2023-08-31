@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('pages.about');
 // });
 
-Route::get('/', [PageController::class, 'index']);
+Route::get('/', [PostsController::class, 'index']);
 Route::get('/about', [PageController::class, 'about']);
 Route::get('/services', [PageController::class, 'services']);
 

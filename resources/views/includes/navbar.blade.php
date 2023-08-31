@@ -12,9 +12,6 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/posts">Blog</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/about">About</a>
             </li>
             <li class="nav-item">
