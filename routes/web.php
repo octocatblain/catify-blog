@@ -38,6 +38,6 @@ Route::resource('posts', PostsController::class);
 // Route::get('posts/{post}', [PostsController::class, 'show']);
 // Route::get('posts/create', [PostsController::class, 'create']);
 // Route::put('posts/{post}', [PostsController::class, 'update']);
-Route::delete('posts/{post}', [PostsController::class, 'destroy'])->middleware('auth');
-Route::get('posts/{post}/edit', [PostsController::class, 'edit'])->middleware('auth');
+// Route::delete('posts/{post}', [PostsController::class, 'destroy']);
+// Route::get('posts/{post}/edit', [PostsController::class, 'edit']);
 // Route::post('posts', [PostsController::class, 'store']);

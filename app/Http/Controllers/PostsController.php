@@ -82,41 +82,54 @@ class PostsController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required',
+            'image' => 'image|nullable|max:1999'
+        ]);
+
         // handle file upload
-        $requestData = $request->all();
-        $fileName = time() . $request->file('image')->getClientOriginalName();
-        $path = $request->file('image')->storeAs('images', $fileName, 'public');
-        $requestData["image"] = '/storage/' . $path;
+        if ($request->hasFile('image')) {
+            $fileName = time() . $request->file('image')->getClientOriginalName();
+            $path = $request->file('image')->storeAs('images', $fileName, 'public');
+            $requestData["image"] = '/storage/' . $path;
+        }
 
         // update post
         $post = Post::find($id);
         $post->title = $request->input('title');
         $post->body = $request->input('body');
-        $post->image = $request->input('image');
+        if (isset($requestData["image"])) {
+            $post->image = $requestData["image"];
+        }
         $post->save();
 
         return redirect('/posts')->with('success', 'Post updated!');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        // delete post
+        // Find the post
         $post = Post::find($id);
 
-        // delete image
-        if (
-            $post->image
-            != 'noimage.jpg'
-        ) {
-            Storage::delete(
-                'app/public/image
-            s/' . $post->image
-            );
+        if (!$post) {
+            return redirect('/posts')->with('error', 'Post not found!');
         }
 
+        // Delete the image if it's not the default 'noimage.jpg'
+        if ($post->image != 'noimage.jpg') {
+            $imagePath = 'public/images/' . basename($post->image);
+
+            if (Storage::exists($imagePath)) {
+                Storage::delete($imagePath);
+            }
+        }
+
+        // Delete the post
         $post->delete();
 
         return redirect('/posts')->with('success', 'Post deleted!');
