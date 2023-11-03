@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\PageController; //import the PageController class
 use App\Http\Controllers\PostsController; //import the PostsController class
-use App\Livewire\Login;
-use App\Livewire\Logout;
-use App\Livewire\Register;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,12 +22,16 @@ Route::get('/', [PostsController::class, 'index'])->name('index');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/products', [PageController::class, 'products'])->name('products');
 
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 // Route::resource('posts', PostsController::class);
 
 
-Route::livewire('/login', [Login::class, 'login'])->name('login');
-Route::livewire('/register', [Register::class, 'register'])->name('register');
-Route::livewire('/logout', [Logout::class, 'logout'])->name('logout');
+// Route::livewire('/login', [Login::class, 'login'])->name('login');
+// Route::livewire('/register', [Register::class, 'register'])->name('register');
+// Route::livewire('/logout', [Logout::class, 'logout'])->name('logout');
 
 
 // -> Alternative way to create routes using dynamic parameter {post}

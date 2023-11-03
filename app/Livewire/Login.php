@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Login extends Component
 {
-    public $title = 'Login';
+
     public $form = [
         'email'   => '',
         'password' => '',
@@ -26,6 +26,6 @@ class Login extends Component
 
     public function render()
     {
-        return view('livewire.login')->with('title', $this->title);
+        return view('livewire.login');
     }
 }
