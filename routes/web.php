@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\PageController; //import the PageController class
 use App\Http\Controllers\PostsController; //import the PostsController class
+use App\Livewire\Login;
+use App\Livewire\Logout;
+use App\Livewire\Register;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,19 +20,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Controller syntax for index page works too
-// Route::get('/', [PageController::class, 'index'])->name('index');
-
-// Route::get('/about', function () {
-//     return view('pages.about');
-// });
-
 Route::get('/', [PostsController::class, 'index'])->name('index');
 Route::get('/about', [PageController::class, 'about'])->name('about');
 Route::get('/products', [PageController::class, 'products'])->name('products');
 
-Route::resource('posts', PostsController::class);
+// Route::resource('posts', PostsController::class);
 
+
+Route::livewire('/login', [Login::class, 'login'])->name('login');
+Route::livewire('/register', [Register::class, 'register'])->name('register');
+Route::livewire('/logout', [Logout::class, 'logout'])->name('logout');
 
 
 // -> Alternative way to create routes using dynamic parameter {post}
@@ -41,3 +41,12 @@ Route::resource('posts', PostsController::class);
 // Route::delete('posts/{post}', [PostsController::class, 'destroy']);
 // Route::get('posts/{post}/edit', [PostsController::class, 'edit']);
 // Route::post('posts', [PostsController::class, 'store']);
+
+
+// Route::group(['middleware' => 'auth'], function () {
+//     Route::get('posts/create', [PostsController::class, 'create']);
+//     Route::put('posts/{post}', [PostsController::class, 'update']);
+//     Route::delete('posts/{post}', [PostsController::class, 'destroy']);
+//     Route::get('posts/{post}/edit', [PostsController::class, 'edit']);
+//     Route::post('posts', [PostsController::class, 'store']);
+// });
